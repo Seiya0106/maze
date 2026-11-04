@@ -19,7 +19,7 @@ private:
 	};
 	
 	static constexpr int32 cellCount = 10;	// constexprは値がプログラム中に変わらないことを表す、staticはオブジェクトではなくクラス全体で共有する値である
-	Cell cells[10][10];	// マスの2次元配列
+	Cell cells[cellCount][cellCount];	// マスの2次元配列
 	
 	void mazeAutoGenerate();	// 迷路の自動生成する関数
 };
