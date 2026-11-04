@@ -17,21 +17,97 @@ void Main()
 	const double top = (Scene::Height() - gridSize) / 2.0;
 	
 	const double padding = 3.0;	// スタート地点とゴール地点の塗りつぶしの範囲を少し小さくする
+	Cell cells[10][10];
+	
+	Array<Point> stack;	// 行き止まりから戻るために前のマスを保存
+	
+	Point currentPos { 0, 0 };	// Pointは整数で座標を表現する構造体
+	cells[0][0].visited = true;	// スタートマスを訪問済みにする
+	
+	// 迷路の自動生成
+	while (true){
+		const int32 row = currentPos.y;
+		const int32 col = currentPos.x;
+		
+		Array<int32> candidates;	// 候補
+			
+		// 候補を探す(0: 上、1: 右、2: 下、3: 左)
+		if (row > 0 && !cells[row - 1][col].visited){
+			candidates << 0; 	// 上
+		}
+		if (col + 1 < cellCount && !cells[row][col + 1].visited){
+			candidates << 1;	// 右	<< Arrayに値を追加する書き方
+		}
+		if (row + 1 < cellCount && !cells[row + 1][col].visited){
+			candidates << 2; 	// 下
+		}
+		if (col > 0 && !cells[row][col - 1].visited){
+			candidates << 3; 	// 左
+		}
+			
+		// 候補(0: 上、1: 右、2: 下、3: 左)があれば、候補からランダムに選び、壁を外す
+		if (!candidates.isEmpty()){
+			// 進む前のマスを保存
+			stack << currentPos;
+			
+			// ランダムに候補を選ぶ
+			const size_t index = Random<size_t>(0, candidates.size()-1);
+			const int32 direction = candidates[index];
+			
+			Point nextPos = currentPos;
+				
+			// 選んだ候補の壁を外す
+			if (direction == 0){	// 上
+				cells[row][col].topWall = false;
+				cells[row - 1][col].bottomWall = false;
+				--nextPos.y;
+			}
+			else if (direction == 1){	// 右
+				cells[row][col].rightWall = false;
+				cells[row][col + 1].leftWall = false;
+				++nextPos.x;
+			}
+			else if (direction == 2){	// 下
+				cells[row][col].bottomWall = false;
+				cells[row + 1][col].topWall = false;
+				++nextPos.y;
+			}
+			else{	// 左
+				cells[row][col].leftWall = false;
+				cells[row][col - 1].rightWall = false;
+				--nextPos.x;
+			}
+			
+			currentPos = nextPos;
+			cells[currentPos.y][currentPos.x].visited = true;
+		}
+		else if (!stack.isEmpty()){
+			// 行き止まりなので、保存した前のマスへ戻る
+			currentPos = stack.back();
+			stack.pop_back();
+		}
+		else{
+			// 戻る場所がなくなったら生成終了
+			break;
+		}
+	}
 
 	while (System::Update())
 	{
 		Scene::SetBackground(Palette::White);	// 背景を白にする
-
-		Cell cells[10][10];
-		
-		// 仮で左上のマスの右の壁を無くした
-		cells[0][0].rightWall = false;
-		cells[0][1].leftWall = false;
 		
 		for (int32 row = 0; row < cellCount; row++){
 			for (int32 col = 0; col < cellCount; col++){
 				const double x = left + col * cellSize;
 				const double y = top + row * cellSize;
+				
+				// 先にスタートとゴールを塗る
+				if (row == 0 && col == 0){	// スタート地点
+					RectF{ x + padding, y + padding, cellSize - padding * 2, cellSize - padding * 2 }.draw(Palette::Blue);
+				}
+				else if (row == cellCount - 1 && col == cellCount -1){	// ゴール地点
+					RectF{ x + padding, y + padding, cellSize - padding * 2, cellSize - padding * 2 }.draw(Palette::Red);
+				}
 				
 				// 壁の表示
 				if (cells[row][col].topWall){
@@ -45,13 +121,6 @@ void Main()
 				}
 				if (cells[row][col].leftWall){
 					Line{ x, y, x, y + cellSize }.draw(Palette::Black);
-				}
-				
-				if (row == 0 && col == 0){	// スタート地点
-					RectF{ x + padding, y + padding, cellSize - padding * 2, cellSize - padding * 2 }.draw(Palette::Blue);
-				}
-				else if (row == cellCount - 1 && col == cellCount -1){	// ゴール地点
-					RectF{ x + padding, y + padding, cellSize - padding * 2, cellSize - padding * 2 }.draw(Palette::Red);
 				}
 			}
 		}
