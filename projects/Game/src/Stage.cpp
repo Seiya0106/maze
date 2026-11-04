@@ -126,3 +126,40 @@ Vec2 Stage::startCenter() const{
 	
 	return { left + cellSize / 2.0, top + cellSize / 2.0 };
 }
+
+bool Stage::canMove(const Point& from, const Point& to) const{
+	const int32 col = from.x;
+	const int32 row = from.y;
+	const int32 nextCol = to.x;
+	const int32 nextRow = to.y;
+	
+	if (nextCol < 0 || nextCol >= cellCount
+		|| nextRow < 0 || nextRow >= cellCount){	// 範囲外
+		return false;
+	}
+	
+	if (nextCol == col && nextRow == row - 1){	// 上
+		return !cells[row][col].topWall;
+	}
+	if (nextCol == col + 1 && nextRow == row){	// 右
+		return !cells[row][col].rightWall;
+	}
+	if (nextCol == col && nextRow == row + 1){	// 下
+		return !cells[row][col].bottomWall;
+	}
+	if (nextCol == col - 1 && nextRow == row){	// 左
+		return !cells[row][col].leftWall;
+	}
+	
+	return false;
+}
+
+Vec2 Stage::cellCenter(const Point& cell) const{
+	constexpr double cellSize = 50.0;
+	constexpr double gridSize = cellCount * cellSize;
+	const double left = (Scene::Width() - gridSize) / 2.0;
+	const double top = (Scene::Height() - gridSize) / 2.0;
+	
+	return { left + (cell.x + 0.5) * cellSize,
+		top + (cell.y + 0.5) * cellSize };
+}

@@ -9,9 +9,10 @@ void Main()
 	while (System::Update())
 	{
 		Scene::SetBackground(Palette::White);	// 背景を白にする
-		
-		// 描画
+
 		stage.draw();
-		player.draw(stage.startCenter());
+		
+		player.update(stage);
+		player.draw(stage.cellCenter(player.cell()));
 	}
 }
