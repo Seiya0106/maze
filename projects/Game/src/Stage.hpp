@@ -4,15 +4,15 @@
 class Stage
 {
 public:
-	Stage();
+	Stage();	// コンストラクタ
 		
 	// 迷路の描画処理
 	void draw() const;
 	
 	Vec2 startCenter() const;	// スタート地点の取得
 	
-	bool canMove(const Point& from, const Point& to) const;
-	Vec2 cellCenter(const Point& cell) const;
+	bool canMove(const Point& from, const Point& to) const;	// fromのマスからtoのマスに進めるかどうかを返す
+	Vec2 cellCenter(const Point& cell) const;	// マスの中心座標
 
 private:
 	struct Cell{	// 各マスの状態を表す構造体
