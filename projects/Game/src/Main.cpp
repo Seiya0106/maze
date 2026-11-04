@@ -1,8 +1,11 @@
 # include <Siv3D.hpp> // Siv3D v0.6.16
 
 struct Cell{	// 各マスの状態を表す構造体
-	bool visited = false;
-	bool blocked = false;
+	bool visited = false;	// 迷路生成中に訪問したか
+	bool topWall = true;	// 一番上のマスかどうか
+	bool rightWall = true;	// 一番右のマスかどうか
+	bool bottomWall = true;	// 一番下のマスかどうか
+	bool leftWall = true;	// 一番左のマスかどうか
 };
 
 void Main()
@@ -27,9 +30,18 @@ void Main()
 			Line{ left, top + position, left + gridSize, top + position }.draw(Palette::Black);
 		}
 		
-		cells[0][0].blocked = true;	// 左上のマスは通れないマス
-		if (cells[0][0].blocked){
-			RectF{ left, top, cellSize, cellSize }.draw(Palette::Black);	// 仮で左上のマスを黒く塗りつぶす
+		for (int32 row = 0; row < cellSize; row++){
+			for (int32 col = 0; col < cellSize; col++){
+				const double x = left + col * cellSize;
+				const double y = top + row * cellSize;
+				
+				if (row == 0 && col == 0){	// スタート地点
+					RectF{ x, y, cellSize, cellSize }.draw(Palette::Blue);
+				}
+				else if (row == cellCount - 1 && col == cellCount -1){	// ゴール地点
+					RectF{ x, y, cellSize, cellSize }.draw(Palette::Red);
+				}
+			}
 		}
 		
 	}
