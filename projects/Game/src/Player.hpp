@@ -16,5 +16,5 @@ public:
 	void move() const;
 private:
 	Texture m_texture;	// キャラクターの表示
-	Point m_cell{ 0, 0 };
+	Point m_cell{ 0, 0 };	// プレイヤーがどのマスにいるか
 };

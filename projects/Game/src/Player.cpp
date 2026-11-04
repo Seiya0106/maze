@@ -5,7 +5,7 @@ Player::Player(const FilePath& imagePath)
 	: m_texture(imagePath) {}
 
 void Player::update(const Stage& stage){
-	Point next = m_cell;
+	Point next = m_cell;	// 次に進みたいマス
 		
 	// 移動キーの入力
 	if (KeyUp.down()){
@@ -31,5 +31,5 @@ void Player::update(const Stage& stage){
 void Player::draw(const Vec2& center) const{
 	m_texture(0, 0, 20, 28)
 		.resized(36, 50)
-		.drawAt(center);
+		.drawAt(center);	// 描画したいマスにプレイヤーを描く
 }
