@@ -2,10 +2,10 @@
 
 struct Cell{	// 各マスの状態を表す構造体
 	bool visited = false;	// 迷路生成中に訪問したか
-	bool topWall = true;	// 一番上のマスかどうか
-	bool rightWall = true;	// 一番右のマスかどうか
-	bool bottomWall = true;	// 一番下のマスかどうか
-	bool leftWall = true;	// 一番左のマスかどうか
+	bool topWall = true;	// 上側に壁がある
+	bool rightWall = true;	// 右に壁がある
+	bool bottomWall = true;	// 下に壁がある
+	bool leftWall = true;	// 左に壁がある
 };
 
 void Main()
@@ -16,30 +16,42 @@ void Main()
 	const double left = (Scene::Width() - gridSize) / 2.0;
 	const double top = (Scene::Height() - gridSize) / 2.0;
 	
-	Cell cells[10][10];	// マス目の配列で、通れるマスかどうかを判定する
+	const double padding = 3.0;	// スタート地点とゴール地点の塗りつぶしの範囲を少し小さくする
 
 	while (System::Update())
 	{
 		Scene::SetBackground(Palette::White);	// 背景を白にする
 
-		// 縦線と横線をそれぞれ11本描いて、10×10のマス目にする
-		for (int32 i = 0; i <= cellCount; ++i)
-		{
-			const double position = i * cellSize;
-			Line{ left + position, top, left + position, top + gridSize }.draw(Palette::Black);
-			Line{ left, top + position, left + gridSize, top + position }.draw(Palette::Black);
-		}
+		Cell cells[10][10];
 		
-		for (int32 row = 0; row < cellSize; row++){
-			for (int32 col = 0; col < cellSize; col++){
+		// 仮で左上のマスの右の壁を無くした
+		cells[0][0].rightWall = false;
+		cells[0][1].leftWall = false;
+		
+		for (int32 row = 0; row < cellCount; row++){
+			for (int32 col = 0; col < cellCount; col++){
 				const double x = left + col * cellSize;
 				const double y = top + row * cellSize;
 				
+				// 壁の表示
+				if (cells[row][col].topWall){
+					Line{ x, y, x + cellSize, y }.draw(Palette::Black);
+				}
+				if (cells[row][col].rightWall){
+					Line{ x + cellSize, y, x + cellSize, y + cellSize }.draw(Palette::Black);
+				}
+				if (cells[row][col].bottomWall){
+					Line{ x, y + cellSize, x + cellSize, y + cellSize }.draw(Palette::Black);
+				}
+				if (cells[row][col].leftWall){
+					Line{ x, y, x, y + cellSize }.draw(Palette::Black);
+				}
+				
 				if (row == 0 && col == 0){	// スタート地点
-					RectF{ x, y, cellSize, cellSize }.draw(Palette::Blue);
+					RectF{ x + padding, y + padding, cellSize - padding * 2, cellSize - padding * 2 }.draw(Palette::Blue);
 				}
 				else if (row == cellCount - 1 && col == cellCount -1){	// ゴール地点
-					RectF{ x, y, cellSize, cellSize }.draw(Palette::Red);
+					RectF{ x + padding, y + padding, cellSize - padding * 2, cellSize - padding * 2 }.draw(Palette::Red);
 				}
 			}
 		}
