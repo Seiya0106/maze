@@ -117,16 +117,6 @@ void Stage::draw() const{
 	}
 }
 
-// スタート地点を取得
-Vec2 Stage::startCenter() const{
-	constexpr double cellSize = 50.0;
-	constexpr double gridSize = cellCount * cellSize;
-	const double left = (Scene::Width() - gridSize) / 2.0;
-	const double top = (Scene::Height() - gridSize) / 2.0;
-	
-	return { left + cellSize / 2.0, top + cellSize / 2.0 };
-}
-
 // fromのマスからtoのマスに進めるかどうかを返す
 bool Stage::canMove(const Point& from, const Point& to) const{
 	const int32 col = from.x;
