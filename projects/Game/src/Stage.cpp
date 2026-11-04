@@ -8,12 +8,12 @@ Stage::Stage(){	// コンストラクタ
 void Stage::mazeAutoGenerate(){
 	Array<Point> stack;	// 行き止まりから戻るために前のマスを保存
 	
-	Point currentPos { 0, 0 };	// Pointは整数で座標を表現する構造体
+	Point currentPos { 0, 0 };	// Point整数座標(xが列、yが行)
 	cells[0][0].visited = true;	// スタートマスを訪問済みにする
 	
 	while (true){
-		const int32 row = currentPos.y;
-		const int32 col = currentPos.x;
+		const int32 row = currentPos.y;	// 行
+		const int32 col = currentPos.x;	// 列
 		
 		Array<int32> candidates;	// 候補
 			
@@ -101,18 +101,57 @@ void Stage::draw() const{
 			}
 			
 			// 壁の表示
-			if (cells[row][col].topWall){
+			if (cells[row][col].topWall){	// 上
 				Line{ x, y, x + cellSize, y }.draw(Palette::Black);
 			}
-			if (cells[row][col].rightWall){
+			if (cells[row][col].rightWall){	// 右
 				Line{ x + cellSize, y, x + cellSize, y + cellSize }.draw(Palette::Black);
 			}
-			if (cells[row][col].bottomWall){
+			if (cells[row][col].bottomWall){	// 下
 				Line{ x, y + cellSize, x + cellSize, y + cellSize }.draw(Palette::Black);
 			}
-			if (cells[row][col].leftWall){
+			if (cells[row][col].leftWall){	// 左
 				Line{ x, y, x, y + cellSize }.draw(Palette::Black);
 			}
 		}
 	}
+}
+
+// fromのマスからtoのマスに進めるかどうかを返す
+bool Stage::canMove(const Point& from, const Point& to) const{
+	const int32 col = from.x;
+	const int32 row = from.y;
+	const int32 nextCol = to.x;
+	const int32 nextRow = to.y;
+	
+	if (nextCol < 0 || nextCol >= cellCount
+		|| nextRow < 0 || nextRow >= cellCount){	// 範囲外
+		return false;
+	}
+	
+	if (nextCol == col && nextRow == row - 1){	// 上
+		return !cells[row][col].topWall;
+	}
+	if (nextCol == col + 1 && nextRow == row){	// 右
+		return !cells[row][col].rightWall;
+	}
+	if (nextCol == col && nextRow == row + 1){	// 下
+		return !cells[row][col].bottomWall;
+	}
+	if (nextCol == col - 1 && nextRow == row){	// 左
+		return !cells[row][col].leftWall;
+	}
+	
+	return false;
+}
+
+// マスの中心座標を返す
+Vec2 Stage::cellCenter(const Point& cell) const{
+	constexpr double cellSize = 50.0;
+	constexpr double gridSize = cellCount * cellSize;
+	const double left = (Scene::Width() - gridSize) / 2.0;
+	const double top = (Scene::Height() - gridSize) / 2.0;
+	
+	return { left + (cell.x + 0.5) * cellSize,
+		top + (cell.y + 0.5) * cellSize };
 }

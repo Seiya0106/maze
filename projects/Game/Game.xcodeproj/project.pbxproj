@@ -38,6 +38,7 @@
 		2C6906D82298140F00A427D0 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C6906D72298140F00A427D0 /* engine */; };
 		2CD8412C283263B2005013A6 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD8412B283263B2005013A6 /* libboost_filesystem.a */; };
 		C3B6166B309B148400023509 /* Stage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B6166A309B148100023509 /* Stage.cpp */; };
+		C3B6166E309B1DB300023509 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B6166D309B1DB100023509 /* Player.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,8 @@
 		2CD8412B283263B2005013A6 /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../../lib/macOS/boost/libboost_filesystem.a; sourceTree = "<group>"; };
 		C3B61669309B147300023509 /* Stage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Stage.hpp; sourceTree = "<group>"; };
 		C3B6166A309B148100023509 /* Stage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Stage.cpp; sourceTree = "<group>"; };
+		C3B6166C309B1DAC00023509 /* Player.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Player.hpp; sourceTree = "<group>"; };
+		C3B6166D309B1DB100023509 /* Player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +141,8 @@
 		2C1778981CE0AA7C00BB8AD0 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				C3B6166D309B1DB100023509 /* Player.cpp */,
+				C3B6166C309B1DAC00023509 /* Player.hpp */,
 				C3B6166A309B148100023509 /* Stage.cpp */,
 				C3B61669309B147300023509 /* Stage.hpp */,
 				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
@@ -250,6 +255,7 @@
 			files = (
 				C3B6166B309B148400023509 /* Stage.cpp in Sources */,
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,
+				C3B6166E309B1DB300023509 /* Player.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
