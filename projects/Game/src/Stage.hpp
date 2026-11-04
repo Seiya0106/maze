@@ -8,6 +8,8 @@ public:
 		
 	// 迷路の描画処理
 	void draw() const;
+	
+	Vec2 startCenter() const;	// スタート地点の取得
 
 private:
 	struct Cell{	// 各マスの状態を表す構造体
