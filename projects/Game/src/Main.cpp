@@ -32,7 +32,7 @@ void Main()
 			}
 		}
 
-		if (player.cell() == Point{9, 9}){
+		if (player.cell() == stage.goalCenter()){
 			isCleared = true;
 			clearFont(U"クリア！").drawAt(Scene::Center(), Palette::Black);
 		}
