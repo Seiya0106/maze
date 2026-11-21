@@ -11,6 +11,9 @@ public:
 	
 	bool canMove(const Point& from, const Point& to) const;	// fromのマスからtoのマスに進めるかどうかを返す
 	Vec2 cellCenter(const Point& cell) const;	// マスの中心座標
+	Point goalCenter() const;	// ゴール地点を返す
+	
+	void mazeReset();		// 迷路を再生成(オブジェクトの状態を変えるためconstをつけない)
 
 private:
 	struct Cell{	// 各マスの状態を表す構造体

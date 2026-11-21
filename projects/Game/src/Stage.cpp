@@ -96,7 +96,7 @@ void Stage::draw() const{
 			if (row == 0 && col == 0){	// スタート地点
 				RectF{ x + padding, y + padding, cellSize - padding * 2, cellSize - padding * 2 }.draw(Palette::Blue);
 			}
-			else if (row == cellCount - 1 && col == cellCount -1){	// ゴール地点
+			else if (Point{ col, row } == goalCenter()){	// ゴール地点
 				RectF{ x + padding, y + padding, cellSize - padding * 2, cellSize - padding * 2 }.draw(Palette::Red);
 			}
 			
@@ -154,4 +154,21 @@ Vec2 Stage::cellCenter(const Point& cell) const{
 	
 	return { left + (cell.x + 0.5) * cellSize,
 		top + (cell.y + 0.5) * cellSize };
+}
+
+// ゴール地点を返す
+Point Stage::goalCenter() const{
+	return Point{ cellCount - 1, cellCount - 1 };
+}
+
+void Stage::mazeReset(){
+	for (int32 row = 0; row < cellCount; ++row)
+	{
+		for (int32 col = 0; col < cellCount; ++col)
+		{
+			cells[row][col] = Cell{};
+		}
+	}
+	
+	mazeAutoGenerate();
 }

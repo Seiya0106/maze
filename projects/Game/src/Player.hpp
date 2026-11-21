@@ -8,11 +8,13 @@ class Player
 public:
 	Player(const FilePath& imagePath);	// コンストラクタ
 	
-	void update(const Stage& stage);	// 移動　
+	void update(const Stage& stage);
 	
 	Point cell() const { return m_cell; }	// プレイヤーの現在位置を返す
 	
 	void draw(const Vec2& center) const;
+	
+	void posReset();	// プレイヤーの位置をスタート地点に戻す(オブジェクトの状態を変更するためconstはつけない)
 	
 private:
 	Texture m_texture;	// キャラクターの表示
