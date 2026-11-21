@@ -9,7 +9,6 @@ public:
 	Player(const FilePath& imagePath);	// コンストラクタ
 	
 	void update(const Stage& stage);
-	void reset() { m_cell = Point{ 0, 0 }; }	// 移動　
 	
 	Point cell() const { return m_cell; }	// プレイヤーの現在位置を返す
 	
