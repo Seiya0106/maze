@@ -1,24 +1,18 @@
-# Siv3D v0.6.16 Game Template
-1 つの Siv3D アプリケーションを Windows 環境と macOS 環境で共同開発する際に便利な、プロジェクト構成テンプレート
+【ゲーム概要】
+自動生成される迷路を進み、青いスタート地点から赤いゴール地点を目指すゲームです。ゴールに到達するとクリアになります。
 
-## Windows でのビルド方法
-- `GameTemplate/projects/Game/Game.sln` を開きます
+【操作方法】
+上下左右の矢印キー：プレイヤーを移動
+スペースキー：クリア後に新しい迷路を生成して再スタート
+【ダウンロードと初回起動】
 
-## macOS でのビルド方法
-- macOS 版 Siv3D（OpenSiv3D v0.6.16 Project Templates for macOS）を別途ダウンロードして展開します
-- 展開した中にある `include/` および `lib/` フォルダを、`GameTemplate/` フォルダにコピーします
+ZIPファイルをダウンロードします。
+ZIPファイルをダブルクリックして展開します。
+展開したフォルダ内の「Game.app」を開きます。
+macOSに「開発元を確認できないため開けません」などと表示された場合は、一度「完了」または「キャンセル」を選びます。
+Appleメニューから「システム設定」→「プライバシーとセキュリティ」を開きます。
+下へスクロールし、このアプリについて表示されている「このまま開く」を選びます。
+確認画面でもう一度「開く」を選びます。
 
-```
-GameTemplate/
-├── .gitignore
-├── LICENSE.txt
-├── README.md
-├── include/
-├── lib/
-└── projects/
-    ├── .gitkeep
-    └── Game/
-```
-
-- `GameTemplate/projects/Game/Game.xcodeproj` を開きます
-
+ダウンロード
+https://github.com/Seiya0106/maze/releases/tag/v1.0.0
