@@ -1,5 +1,9 @@
 #include "Stage.hpp"	// Stage.hppを読み込み
 
+namespace {		// 名前なしnamespace、この中にある変数はStage.cpp内だけで使える
+	constexpr double cellSize = 50.0;
+}
+
 Stage::Stage(){	// コンストラクタ
 	mazeAutoGenerate();
 }
@@ -81,7 +85,6 @@ void Stage::mazeAutoGenerate(){
 
 // 迷路の描画
 void Stage::draw() const{
-	constexpr double cellSize = 50.0;
 	const double gridSize = cellCount * cellSize;	// constは変数の値を一度決めた後変更できなくする
 	const double left = (Scene::Width() - gridSize) / 2.0;
 	const double top = (Scene::Height() - gridSize) / 2.0;
@@ -147,7 +150,6 @@ bool Stage::canMove(const Point& from, const Point& to) const{
 
 // マスの中心座標を返す
 Vec2 Stage::cellCenter(const Point& cell) const{
-	constexpr double cellSize = 50.0;
 	constexpr double gridSize = cellCount * cellSize;
 	const double left = (Scene::Width() - gridSize) / 2.0;
 	const double top = (Scene::Height() - gridSize) / 2.0;
