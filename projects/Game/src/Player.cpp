@@ -33,3 +33,8 @@ void Player::draw(const Vec2& center) const{
 		.resized(36, 50)
 		.drawAt(center);	// 描画したいマスにプレイヤーを描く
 }
+
+// プレイヤーをスタート地点に戻す
+void Player::posReset(){
+	m_cell = Point{ 0, 0 };
+}

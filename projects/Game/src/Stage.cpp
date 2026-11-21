@@ -155,3 +155,15 @@ Vec2 Stage::cellCenter(const Point& cell) const{
 	return { left + (cell.x + 0.5) * cellSize,
 		top + (cell.y + 0.5) * cellSize };
 }
+
+void Stage::mazeReset(){
+	for (int32 row = 0; row < cellCount; ++row)
+	{
+		for (int32 col = 0; col < cellCount; ++col)
+		{
+			cells[row][col] = Cell{};
+		}
+	}
+	
+	mazeAutoGenerate();
+}
