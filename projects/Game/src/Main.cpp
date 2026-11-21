@@ -5,7 +5,7 @@
 void Main()
 {
 	Stage stage;
-	Player player{ U"example/spritesheet/siv3d-kun-16.png" };	// siv3d-kunのキャラクターをインポート
+	Player player{ Resource(U"siv3d-kun-16.png") };	// siv3d-kunのキャラクターをインポート
 	
 	const Font clearFont{ 40 };		// クリア時に使うフォント
 	const Font restartFont{ 30 };
